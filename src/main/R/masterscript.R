@@ -35,6 +35,11 @@ scenarios <- list(
 
 ################################################################################ INPUT ####
 
+## TUD working directory
+setwd('C:/Users/Noroozi/Workspace/git/matsim-leipzig')
+namav.project.folder.root <- "C:/Users/Noroozi/NaMAV"
+#namav.project.folder.root <- "../../shared-svn/projects/NaMAV"
+
 for (scenario in scenarios){
 
   publicSVN <- "../../public-svn/matsim/scenarios/countries/de/leipzig/projects/namav/"
@@ -44,16 +49,16 @@ for (scenario in scenarios){
   #base path nur für Sankey und Winner/Loser Analysis
   base.run.path <- "../../public-svn/matsim/scenarios/countries/de/leipzig/projects/namav/base-case/"
 
-  region.shp.path <- "../../shared-svn/projects/NaMAV/data/shapefiles/leipzig_region/Leipzig_puffer.shp"
-  city.shp.path <- "../../shared-svn/projects/NaMAV/data/shapefiles/leipzig_stadt/Leipzig_stadt.shp"
+  region.shp.path <- paste0(namav.project.folder.root, "/data/shapefiles/leipzig_region/Leipzig_puffer.shp")
+  city.shp.path <- paste0(namav.project.folder.root, "/data/shapefiles/leipzig_stadt/Leipzig_stadt.shp")
 
   # choose shp path for carfree-area-scenarios, choose carfree_area_large for all other scenarios to avoid errors
   if (scenario == "carfree-area-small") {
-    carfree.area.shp.path <- "../../shared-svn/projects/NaMAV/data/shapefiles/leipzig_carfree_area_small/Zonen99_update.shp"
+    carfree.area.shp.path <- paste0(namav.project.folder.root, "/data/shapefiles/leipzig_carfree_area_small/Zonen99_update.shp")
   } else if (scenario == "carfree-area-medium") {
-    carfree.area.shp.path <- "../../shared-svn/projects/NaMAV/data/shapefiles/leipzig_carfree_area_medium/Zonen95_update.shp"
+    carfree.area.shp.path <- paste0(namav.project.folder.root, "/data/shapefiles/leipzig_carfree_area_medium/Zonen95_update.shp")
   } else {
-    carfree.area.shp.path <- "../../shared-svn/projects/NaMAV/data/shapefiles/leipzig_carfree_area_large/Zonen90_update.shp"
+    carfree.area.shp.path <- paste0(namav.project.folder.root, "/data/shapefiles/leipzig_carfree_area_large/Zonen90_update.shp")
   }
 
   network <- Sys.glob(file.path(base.run.path, "*output_network.xml.gz"))
@@ -76,6 +81,7 @@ for (scenario in scenarios){
 
   outputDirectoryScenario <-  paste0(scenario.run.path, "analysis/analysis-R") # the plots are going to be saved here
 
+  #setwd('C:/Users/Noroozi/Workspace/git/matsim-leipzig')
   if(!file.exists(paste0(scenario.run.path,"analysis"))) {
     print("creating general analysis sub-directory")
     dir.create(paste0(scenario.run.path,"analysis"))
@@ -151,6 +157,9 @@ for (scenario in scenarios){
 
   #### #9.4 DRT trip purposes
   x_drt_trip_purposes = 1
+
+  #### tud analysis ####
+  x_tud_analysis = 1
 
   print("#### Analysis choice succesful! ####")
   print(paste0("#### Starting to analyze output for dir: ", scenario.run.path, " ####"))

@@ -61,7 +61,6 @@ if (x_sankey_diagram == 1){
   base.trips.region <- filterByRegion(base.trips.table,region.shape,crs=CRS,start.inshape = TRUE,end.inshape = TRUE)
   base.trips.city <- filterByRegion(base.trips.table,city.shape,crs=CRS,start.inshape = TRUE,end.inshape = TRUE)
   base.trips.carfree.area <- filterByRegion(base.trips.table, carfree.area.shape, crs=CRS, start.inshape = TRUE, end.inshape = TRUE)
-
 }
 
 if (x_winner_loser == 1){
@@ -70,6 +69,7 @@ if (x_winner_loser == 1){
   scenario.persons <- readPersonsTable(scenario.run.path)
   print("#### Population loaded! ####")
 }
+
 
 
 #### 0. Parameters ####
@@ -393,6 +393,7 @@ if (x_personen_km_legs == 1){
                       .id = "id"),
             file = paste0(outputDirectoryScenario, "/df.pkm.legs.csv"), row.names = FALSE, quote=FALSE)
 }
+
 #### #4.1 Average Travel Time - trips based #####
 if (x_average_time_trips == 1){
   print("#### in 4.1 ####")
@@ -590,9 +591,8 @@ if (x_average_beeline_speed_trips == 1){
 }
 
 #### #7.1 Emissions ####
-if (x_emissions == 1){
-  print("#### in 7.1 ####")
-}
+
+## Please check tud script
 
 #### #8.1 Equity / Winner-Loser Analysis ####
 if (x_winner_loser == 1){
@@ -621,7 +621,7 @@ if (x_winner_loser == 1){
     write.csv(file = paste0(outputDirectoryScenario,"/chart.equity.score_distrib.csv"), quote = FALSE, row.names = FALSE)
   
   # b) Score Summary Stats Table
-  
+
   pct_change_mean <-  (mean(persons_joined_sf$executed_score_policy) - mean(persons_joined_sf$executed_score_base)) / mean(persons_joined_sf$executed_score_base) * 100
   pct_change_median <-  (median(persons_joined_sf$executed_score_policy) - median(persons_joined_sf$executed_score_base)) / median(persons_joined_sf$executed_score_base) * 100
 
@@ -760,6 +760,7 @@ if (x_winner_loser == 1){
 
 }
 
-
-
+if(x_tud_analysis == 1){
+  source("../matsim-leipzig/src/main/R/tud_analysis_script.R")
+}
 
