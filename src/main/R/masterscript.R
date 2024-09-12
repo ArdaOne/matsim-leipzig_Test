@@ -10,8 +10,11 @@ library(XML)
 # hence they are commented put for now -sme0623
 #devtools::install_github("matsim-vsp/matsim-r", ref="winnerLoserUtils", force = TRUE)
 # devtools::load_all("~/git/matsim-r", reset = TRUE)
+#install.packages("remotes")
+#remotes::install_github("matsim-vsp/matsim-r")
 library(matsim)
 library(ggalluvial)
+library(ggplot2)
 library(getopt)
 
 print("#### Libraries loaded! ####")
@@ -36,18 +39,19 @@ scenarios <- list(
 ################################################################################ INPUT ####
 
 ## TUD working directory
-setwd('C:/Users/Noroozi/Workspace/git/matsim-leipzig')
-namav.project.folder.root <- "C:/Users/Noroozi/NaMAV"
+setwd('H:/Workspace/matsim-leipzig_Test')
+namav.project.folder.root <- "../shape_files"
 #namav.project.folder.root <- "../../shared-svn/projects/NaMAV"
 
 for (scenario in scenarios){
 
-  publicSVN <- "../../public-svn/matsim/scenarios/countries/de/leipzig/projects/namav/"
+  publicSVN <- "../public-svn/matsim/scenarios/countries/de/leipzig/projects/namav/"
 
+ # H:\Workspace\public-svn\matsim\scenarios\countries\de\leipzig\projects\namav
   runID <- paste0(scenario, "/")
 
   #base path nur für Sankey und Winner/Loser Analysis
-  base.run.path <- "../../public-svn/matsim/scenarios/countries/de/leipzig/projects/namav/base-case/"
+  base.run.path <- "../public-svn/matsim/scenarios/countries/de/leipzig/projects/namav/base-case/"
 
   region.shp.path <- paste0(namav.project.folder.root, "/data/shapefiles/leipzig_region/Leipzig_puffer.shp")
   city.shp.path <- paste0(namav.project.folder.root, "/data/shapefiles/leipzig_stadt/Leipzig_stadt.shp")
@@ -165,13 +169,13 @@ for (scenario in scenarios){
   print(paste0("#### Starting to analyze output for dir: ", scenario.run.path, " ####"))
   ################################################################################ SOURCE ####
 
-  source("../matsim-leipzig/src/main/R/masteranalyse.R")
+  source("../matsim-leipzig_Test/src/main/R/masteranalyse.R")
 
   if (x_drt_supply == 1 || x_drt_demand == 1|| x_drt_performance == 1 || x_drt_trip_purposes == 1){
 
     outputDirectoryScenarioDrt <- paste0(scenario.run.path, "analysis/analysis-drt/")
 
-    source("../matsim-leipzig/src/main/R/master_drt.R")
+    source("../matsim-leipzig_Test/src/main/R/master_drt.R")
   }
 
   print("#### Masterscript done! ####")

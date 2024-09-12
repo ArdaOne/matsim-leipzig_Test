@@ -35,7 +35,8 @@ plot_creation = 1
 ## base data reading and filtering
 
 # trips reading and filtering
-base.trips.table <- readTripsTable(pathToMATSimOutputDirectory = base.run.path)
+#base.trips.table <- readTripsTable(pathToMATSimOutputDirectory = base.run.path)
+base.trips.table <- read_delim(paste0(base.run.path, "leipzig-10pct.output_trips.csv.gz"))
 
 base.trips.region <- filterByRegion(base.trips.table,region.shape,crs=CRS,start.inshape = TRUE,end.inshape = TRUE)
 base.trips.city <- filterByRegion(base.trips.table,city.shape,crs=CRS,start.inshape = TRUE,end.inshape = TRUE)

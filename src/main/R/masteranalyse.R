@@ -7,7 +7,9 @@ print("#### Shape files loaded! ####")
 #### reading trips/legs files ####
 
 ## Trip File
-scenario.trips.table <- readTripsTable(pathToMATSimOutputDirectory = scenario.run.path)
+
+scenario.trips.table <- read_delim(paste0(scenario.run.path, "leipzig-10pct.output_trips.csv.gz"))
+#scenario.trips.table <- readTripsTable(pathToMATSimOutputDirectory = scenario.run.path)
 print("#### Trips loaded! ####")
 
 ## Leg Files
@@ -56,7 +58,9 @@ avg_trav_time <- function(x){
 }
 
 if (x_sankey_diagram == 1){
-  base.trips.table <- readTripsTable(pathToMATSimOutputDirectory = base.run.path)
+  #base.trips.table <- readTripsTable(pathToMATSimOutputDirectory = base.run.path)
+  base.trips.table <- read_delim(paste0(base.run.path, "leipzig-10pct.output_trips.csv.gz"))
+
 
   base.trips.region <- filterByRegion(base.trips.table,region.shape,crs=CRS,start.inshape = TRUE,end.inshape = TRUE)
   base.trips.city <- filterByRegion(base.trips.table,city.shape,crs=CRS,start.inshape = TRUE,end.inshape = TRUE)
@@ -761,6 +765,6 @@ if (x_winner_loser == 1){
 }
 
 if(x_tud_analysis == 1){
-  source("../matsim-leipzig/src/main/R/tud_analysis_script.R")
+  source("../matsim-leipzig_Test/src/main/R/tud_analysis_script.R")
 }
 
